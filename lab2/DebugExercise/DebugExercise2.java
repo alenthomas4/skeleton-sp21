@@ -79,6 +79,11 @@ public class DebugExercise2 {
         int[] a = {1, 11, -1, -11};
         int[] b = {3, -3, 2, -1};
 
+        /*
+        expect:
+        3 + 11 + 2 + (-1) = 15
+         */
+
         int sumOfElementwiseMaxes = sumOfElementwiseMaxes(a, b);
         System.out.println(sumOfElementwiseMaxes);
     }
