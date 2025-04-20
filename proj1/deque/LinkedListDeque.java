@@ -4,7 +4,14 @@ public class LinkedListDeque<T> {
 
     /*
     A deque is a Double ended queue. This is the LinkedList implementation thereof.
+
+    invariants:
+        1. size = number of items in the list
+            -the 'highest' index is size-1 ( counting from 0 ).
+        2.
+        3.
      */
+
 
     private class Node {
         private T item;
@@ -26,6 +33,7 @@ public class LinkedListDeque<T> {
 
     // creates an empty list
     public LinkedListDeque() {
+        // node that points to itself
         sentinel = new Node(null, sentinel,sentinel);
         size = 0;
     }
@@ -89,7 +97,19 @@ public class LinkedListDeque<T> {
 
 
     public T removeFirst() {
-        return null;
+        if (size == 0) {
+            return null;
+        } else {
+            Node first = sentinel.next;
+            sentinel.next = first.next;
+            first.next.prev = sentinel;
+            first.prev = null;
+            first.next = null;
+            size--;
+            return first.item;
+        }
+
+
     }
 
     public T removeLast() {
@@ -116,8 +136,29 @@ public class LinkedListDeque<T> {
     }
 
 
+    /**
+     * recursively return the ith value
+     * @param index
+     * @return
+     */
+
     public T getRecursive(int index) {
-    return null;
+        // base case for main
+        if (index > size - 1) {
+            System.out.printf("Index %d is out of bounds\n", index);
+            return null;
+        }
+        return getRecursiveHelper(0,index, sentinel.next);
+    }
+
+    private T getRecursiveHelper(int i, int index, Node current) {
+        // base case, if we have reached the desired index, return the item in it
+        if (i == index) {
+            return current.item;
+        }
+
+        return getRecursiveHelper(i+1, index, current.next);
+
     }
 
     public void printDeque() {
@@ -131,11 +172,13 @@ public class LinkedListDeque<T> {
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        deque.addFirst(1);
-        deque.addFirst(2);
-        deque.addFirst(3);
+        deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
         deque.addLast(4);
-        deque.printDeque();
+
+
+        System.out.println(deque.getRecursive(3));
 
         /** deque.addFirst(1);
         deque.addFirst(2);
