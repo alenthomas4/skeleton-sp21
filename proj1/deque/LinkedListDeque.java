@@ -87,9 +87,6 @@ public class LinkedListDeque<T> {
         return size;
     }
 
-    public void printDeque() {
-
-    }
 
     public T removeFirst() {
         return null;
@@ -105,18 +102,41 @@ public class LinkedListDeque<T> {
      * @return
      */
     public T get(int index) {
+
+        Node current = sentinel.next;
+        int i = 0;
+        while (i < size) {
+            if (i == index) {
+                return current.item;
+            }
+            current = current.next;
+            i++;
+        }
         return null;
     }
 
-    public T getRecursive(int index){
+
+    public T getRecursive(int index) {
     return null;
     }
 
+    public void printDeque() {
+       for (int i = 0; i < size; i++) {
+           System.out.print(get(i) + " ");
+       }
+        System.out.println();
+    }
+
+
+
     public static void main(String[] args) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
-        deque.addLast(1);
-        deque.addLast(2);
-        deque.addLast(3);
+        deque.addFirst(1);
+        deque.addFirst(2);
+        deque.addFirst(3);
+        deque.addLast(4);
+        deque.printDeque();
+
         /** deque.addFirst(1);
         deque.addFirst(2);
         deque.addFirst(3);
