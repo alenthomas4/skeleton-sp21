@@ -8,7 +8,7 @@ public class TimeAList {
     private static void printTimingTable(AList<Integer> Ns, AList<Double> times, AList<Integer> opCounts) {
         System.out.printf("%12s %12s %12s %12s\n", "N", "time (s)", "# ops", "microsec/op");
         System.out.printf("------------------------------------------------------------\n");
-        for (int i = 0; i < Ns.size(); i += 1) {
+        for (int i = 1000; i < Ns.size(); i*=2) {
             int N = Ns.get(i);
             double time = times.get(i);
             int opCount = opCounts.get(i);
@@ -22,6 +22,21 @@ public class TimeAList {
     }
 
     public static void timeAListConstruction() {
-        // TODO: YOUR CODE HERE
+
+        Stopwatch stopwatch = new Stopwatch();
+        AList<Integer> Ns = new AList<>();
+        AList<Double> times = new AList<>();
+        AList<Integer> opCounts = new AList<>();
+
+
+        int opCount = -1;
+        for (int i = 0; i <= 64000; i++) {
+            Ns.addLast(i);
+            opCount += 1;
+            times.addLast(stopwatch.elapsedTime());
+            opCounts.addLast(opCount);
+        }
+        printTimingTable(Ns, times, opCounts);
+
     }
 }
