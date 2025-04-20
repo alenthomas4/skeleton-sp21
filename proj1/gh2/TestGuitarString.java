@@ -1,8 +1,11 @@
+
+
 package gh2;
 
 /* Imports the required audio library from the
  * edu.princeton.cs.introcs package. */
-import edu.princeton.cs.introcs.StdAudio;
+// i changed this: from edu.princeton.cs.introcs.StdAudio
+import edu.princeton.cs.algs4.StdAudio;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -80,4 +83,5 @@ public class TestGuitarString  {
         assertEquals("Wrong tic value. Try running the testTic method.", expected, s5, 0.001);
     }
 }
+
 
