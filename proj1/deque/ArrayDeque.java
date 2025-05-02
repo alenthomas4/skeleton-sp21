@@ -66,8 +66,12 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        int removeIndex = nextFirst+1;
+        if (size() == 0 || items[removeIndex] == null) {
+            return(null);
+        }
         T i = get(nextFirst);
-        items[nextFirst+1] = null;
+        items[removeIndex] = null;
         nextFirst++;
         size--;
         return i;
@@ -75,6 +79,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        int removeIndex = nextLast-1;
+        if (size() == 0 || items[removeIndex] == null) {
+            return(null);
+        }
         T i = get(nextLast);
         items[nextLast-1] = null;
         nextLast--;
@@ -84,6 +92,9 @@ public class ArrayDeque<T> {
 
     public static void main(String[] args) {
         ArrayDeque<Integer> m = new ArrayDeque<>();
+        m.removeFirst();
+        m.removeLast();
+        m.removeFirst();
         m.addFirst(1);
         m.addFirst(2);
         m.removeFirst();
