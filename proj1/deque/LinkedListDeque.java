@@ -25,8 +25,14 @@ public class LinkedListDeque<T> {
 
         }
     }
-
+    /*
+    A Sentinel Node - implements the circular list ideology
+     */
     private Node sentinel;
+
+    /*
+    Caches the size of the Linked List.
+     */
     private int size;
 
 
@@ -80,11 +86,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty() {
-        int size = size();
-        if (size == 0) {
-            return true;
-        }
-        return false;
+        return size() == 0;
     }
 
     /**
@@ -172,10 +174,12 @@ public class LinkedListDeque<T> {
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
+        System.out.println(deque.isEmpty());
         deque.addLast(1);
         deque.addLast(2);
         deque.addLast(3);
         deque.addLast(4);
+        System.out.println(deque.isEmpty());
 
 
         System.out.println(deque.getRecursive(3));
