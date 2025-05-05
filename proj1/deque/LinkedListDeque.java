@@ -1,6 +1,41 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Iterable<T> {
+
+    /**
+     * @return LinkedListIterator
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+
+    }
+
+    /**
+     * Iterator that iterates through the linked list.
+     */
+    private class LinkedListIterator implements Iterator<T> {
+        private int cursor;
+
+
+        public LinkedListIterator() {
+            cursor = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return cursor < size();
+        }
+
+        @Override
+        public T next() {
+            int getIndex = cursor;
+            T item = get(getIndex);
+            cursor++;
+            return item;
+        }
+    }
 
     /*
     A deque is a Double ended queue. This is the LinkedList implementation thereof.
@@ -13,6 +48,10 @@ public class LinkedListDeque<T> {
      */
 
 
+    /**
+     * Each node has an item, and a next and previous pointer.
+
+     */
     private class Node {
         private T item;
         private Node prev;
@@ -174,15 +213,18 @@ public class LinkedListDeque<T> {
 
     public static void main(String[] args) {
         LinkedListDeque<Integer> deque = new LinkedListDeque<>();
+        Iterator<Integer> seer = deque.iterator();
+
         System.out.println(deque.isEmpty());
         deque.addLast(1);
         deque.addLast(2);
         deque.addLast(3);
         deque.addLast(4);
-        System.out.println(deque.isEmpty());
-
-
-        System.out.println(deque.getRecursive(3));
+        System.out.println("first element: " + deque.get(0));
+        Iterator<Integer> iter = deque.iterator();
+       for (int i: deque) {
+           System.out.print(i + " ");
+       }
 
         /** deque.addFirst(1);
         deque.addFirst(2);

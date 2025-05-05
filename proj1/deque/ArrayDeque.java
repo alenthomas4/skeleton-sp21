@@ -1,8 +1,9 @@
 package deque;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Iterable<T> {
 
     private T[] items;
     private int size;
@@ -21,8 +22,23 @@ public class ArrayDeque<T> {
         nextLast = 5;
     }
 
+    private int getFirstIndex() {
+        if (nextFirst == items.length-1) {
+            return 0;
+        }
+        return(nextFirst+1);
+    }
+
+    private int getLastIndex() {
+        if (nextLast == 0) {
+            return(size()-1);
+        }
+        return(nextLast-1);
+    }
+
     public T get(int i) {
-        int index = (nextFirst + 1) + i;
+        int firstIndex = getFirstIndex();
+        int index = ((firstIndex) + i ) % items.length;
         if (items[index] == null) {
             return null;
         }
@@ -70,11 +86,11 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        int removeIndex = nextFirst+1;
+        int removeIndex = getFirstIndex();
         if (isEmpty() || items[removeIndex] == null) {
             return(null);
         }
-        T i = get(nextFirst);
+        T i = get(removeIndex);
         items[removeIndex] = null;
         nextFirst++;
         size--;
@@ -83,34 +99,57 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        int removeIndex = nextLast-1;
+        int removeIndex = getLastIndex();
         if (isEmpty() || items[removeIndex] == null) {
             return(null);
         }
-        T i = get(nextLast);
-        items[nextLast-1] = null;
+        T i = get(removeIndex);
+        items[removeIndex] = null;
         nextLast--;
         size--;
         return i;
     }
 
+
+
+    public void printDeque() {
+        int startIndex = getFirstIndex();   // logical front of the deque
+        int numElements = size();           // how many elements to print
+
+        for (int i = 0; i < numElements; i++) {
+            int index = (startIndex + i) % items.length;
+            System.out.print(items[index] + " ");
+        }
+        System.out.println();
+    }
+
+
     public static void main(String[] args) {
         ArrayDeque<Integer> m = new ArrayDeque<>();
-        m.removeFirst();
-        m.removeLast();
-        m.removeFirst();
-        m.addFirst(1);
-        m.addFirst(2);
-        m.removeFirst();
-        m.addFirst(3);
-        m.addFirst(4);
-        m.addFirst(45);
-        System.out.println(m.get(2));
+
+        m.addFirst(88);   // [88]
+        m.addLast(12);    // [88, 12]
+        m.addFirst(47);   // [47, 88, 12]
+        m.addLast(33);    // [47, 88, 12, 33]
+        m.addFirst(5);    // [5, 47, 88, 12, 33]
+        m.addLast(12);
+        m.addLast(47);
+        m.addLast(34);
+        m.addLast(5);
+        m.addLast(12);
+
+
+        m.printDeque();   // Expected output: 99 5 47 88 12 33 61 100
+        System.out.println(m.get(0));
+        System.out.println(m.get(1));
 
 
 
     }
 
 
-
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
 }
