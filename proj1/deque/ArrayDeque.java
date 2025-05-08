@@ -3,7 +3,7 @@ package deque;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Deque<T> {
 
     private T[] items;
     private int size;
@@ -43,10 +43,6 @@ public class ArrayDeque<T> implements Iterable<T> {
             return null;
         }
         return(items[index]);
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int size() {
@@ -125,31 +121,17 @@ public class ArrayDeque<T> implements Iterable<T> {
 
 
     public static void main(String[] args) {
-        ArrayDeque<Integer> m = new ArrayDeque<>();
+        ArrayDeque<Dog> m = new ArrayDeque<>();
+        Dog d1 = new Dog();
+        Dog d2 = new Dog();
 
-        m.addFirst(88);   // [88]
-        m.addLast(12);    // [88, 12]
-        m.addFirst(47);   // [47, 88, 12]
-        m.addLast(33);    // [47, 88, 12, 33]
-        m.addFirst(5);    // [5, 47, 88, 12, 33]
-        m.addLast(12);
-        m.addLast(47);
-        m.addLast(34);
-        m.addLast(5);
-        m.addLast(12);
+        m.addFirst(d1);
+        m.addFirst(d2);
 
-
-        m.printDeque();   // Expected output: 99 5 47 88 12 33 61 100
-        System.out.println(m.get(0));
         System.out.println(m.get(1));
 
 
 
-    }
 
-
-    @Override
-    public Iterator<T> iterator() {
-        return null;
     }
 }
